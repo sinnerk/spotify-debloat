@@ -1,5 +1,5 @@
 /*
- * spicetify-lean - lean-ui.js
+ * spotify-debloat - lean-ui.js
  *
  * Adds a "Lean" toggle to the top bar and exposes window.Lean.
  *
@@ -12,7 +12,7 @@
   "use strict";
 
   const VERSION = "0.2.0";
-  const STORAGE_KEY = "spicetify-lean:ui";
+  const STORAGE_KEY = "spotify-debloat:ui";
   const root = document.documentElement;
   let enabled = localStorage.getItem(STORAGE_KEY) !== "0";
 
@@ -91,5 +91,5 @@
     if (mount() || attempts > 40) clearInterval(timer);
   }, 500);
 
-  console.log(`[spicetify-lean] lean-ui ${VERSION} loaded (debloat ${enabled ? "on" : "off"})`);
+  console.log(`[spotify-debloat] lean-ui ${VERSION} loaded (debloat ${enabled ? "on" : "off"})`);
 })();

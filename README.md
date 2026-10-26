@@ -1,4 +1,4 @@
-# spicetify-lean
+# Spotify Debloat
 
 A debloated, documented [Spicetify](https://spicetify.app) setup for the **official**
 Spotify desktop client on Windows, plus a committed inventory of every extension in the
@@ -7,8 +7,11 @@ Spicetify Marketplace so you can pick the ones you actually want.
 It is not a Spotify clone and it ships no modified Spotify binaries. It configures
 Spicetify, installs one small stylesheet, and enables a curated extension preset.
 
+**First time?** [docs/SETUP.md](docs/SETUP.md) walks through it from a clean machine,
+including the Spicetify prerequisite and execution-policy errors.
+
 ```
-  spicetify-lean  install
+  spotify-debloat  install
   ------------------------------------------------
   theme       %APPDATA%\spicetify\Themes\Lean
   extensions  10 enabled via preset 'lean'
@@ -57,6 +60,9 @@ Prerequisites:
 Then, from the repository root:
 
 ```powershell
+git clone https://github.com/sinnerk/spotify-debloat.git
+cd spotify-debloat
+
 # 1. Check the machine first - changes nothing
 .\lean.ps1 doctor
 
@@ -186,6 +192,7 @@ docs/                    the documents listed below
 
 | Document | Contents |
 | --- | --- |
+| [SETUP.md](docs/SETUP.md) | Step-by-step install from a clean Windows machine, presets, update and uninstall. |
 | [ARCHITECTURE.md](docs/ARCHITECTURE.md) | How the module, state file and install pipeline fit together. |
 | [DEBLOAT.md](docs/DEBLOAT.md) | Every setting and flag that is changed, and what it actually does. |
 | [PLUGINS.md](docs/PLUGINS.md) | Catalog format, presets, policy, installing your own picks. |

@@ -5,6 +5,7 @@ document that matches your question.
 
 | Document | Read it when |
 | --- | --- |
+| [SETUP.md](SETUP.md) | You are installing on a clean machine, or you need the prerequisite/execution-policy steps. |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | You want to understand how the module, state file and install pipeline fit together, or you are changing the code. |
 | [DEBLOAT.md](DEBLOAT.md) | You want to know exactly which setting or flag does what, and what is deliberately not done. |
 | [PLUGINS.md](PLUGINS.md) | You want to install something that is not in a preset, understand the catalog, or write your own preset. |

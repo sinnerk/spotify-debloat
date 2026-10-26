@@ -1,6 +1,6 @@
 # Architecture
 
-How `spicetify-lean` is put together, why the moving parts are where they are, and which
+How `spotify-debloat` is put together, why the moving parts are where they are, and which
 behaviours of Spicetify 2.46 it works around.
 
 ## Layers

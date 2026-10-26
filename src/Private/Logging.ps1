@@ -32,7 +32,7 @@ function Write-LeanLog {
 function Write-LeanBanner {
     param([string] $Title, [string] $Subtitle)
     Write-Host ''
-    Write-Host '  spicetify-lean' -ForegroundColor DarkGray
+    Write-Host '  spotify-debloat' -ForegroundColor DarkGray
     Write-Host ("  {0}" -f $Title) -ForegroundColor White
     if ($Subtitle) { Write-Host ("  {0}" -f $Subtitle) -ForegroundColor DarkGray }
     Write-Host ''

@@ -1,6 +1,6 @@
 #Requires -Version 5.1
 <#
-    spicetify-lean - module loader.
+    spotify-debloat - module loader.
     Public functions live in src/Public, internal helpers in src/Private.
 #>
 

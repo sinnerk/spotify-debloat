@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    spicetify-lean command line.
+    spotify-debloat command line.
 
 .EXAMPLE
     .\lean.ps1 install
@@ -49,7 +49,7 @@ Import-Module $modulePath -Force -ErrorAction Stop
 
 function Show-LeanHelp {
     @'
-spicetify-lean - a debloated Spicetify distribution
+spotify-debloat - a debloated Spicetify distribution
 
 USAGE
   .\lean.ps1 <command> [options]
@@ -95,7 +95,7 @@ Docs: README.md and docs/README.md
 function Format-LeanStatus {
     param($Status)
     Write-Host ''
-    Write-Host '  spicetify-lean status' -ForegroundColor DarkGray
+    Write-Host '  spotify-debloat status' -ForegroundColor DarkGray
     Write-Host ''
     $rows = @(
         @('Spotify', $Status.SpotifyVersion),
@@ -228,7 +228,7 @@ switch ($Command.ToLowerInvariant()) {
 
     'version' {
         $module = Get-Module Lean
-        Write-Host ("spicetify-lean {0}" -f $module.Version)
+        Write-Host ("spotify-debloat {0}" -f $module.Version)
     }
 
     'help' { Show-LeanHelp }

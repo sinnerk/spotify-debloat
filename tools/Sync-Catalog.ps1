@@ -57,7 +57,7 @@ $Topics = @{
     apps       = 'spicetify-apps'
 }
 $MarketplaceRaw = 'https://raw.githubusercontent.com/spicetify/marketplace/main'
-$UserAgent = 'spicetify-lean-catalog/1.0 (+https://github.com/sinnerk/spicetify-lean)'
+$UserAgent = 'spotify-debloat-catalog/1.0 (+https://github.com/sinnerk/spotify-debloat)'
 
 # --------------------------------------------------------------------------- helpers
 

@@ -45,8 +45,8 @@ Start here:
 
 | Symptom | Cause | Fix |
 | --- | --- | --- |
-| No "Lean" pill in the top bar | `lean-ui.js` is not enabled, or it loaded before the top bar existed. | `.\lean.ps1 theme` then `spicetify apply`. Check the console for `[spicetify-lean] lean-ui 0.2.0 loaded`. |
-| Pill shows, clicking does nothing | `localStorage` is full or blocked. | Console: `Lean.toggle()` directly; then `localStorage.removeItem("spicetify-lean:ui")`. |
+| No "Lean" pill in the top bar | `lean-ui.js` is not enabled, or it loaded before the top bar existed. | `.\lean.ps1 theme` then `spicetify apply`. Check the console for `[spotify-debloat] lean-ui 0.2.0 loaded`. |
+| Pill shows, clicking does nothing | `localStorage` is full or blocked. | Console: `Lean.toggle()` directly; then `localStorage.removeItem("spotify-debloat:ui")`. |
 | Pill disappeared after an update | The mount point `.main-globalNav-contentRight` changed. | `lean-ui.js` warns in the console when it cannot mount; update the selector list in `mount()`. |
 | Debloat rules come back after restart | `localStorage` is cleared on exit (rare, corporate profiles). | Set `data-lean` from a userscript, or make the rules unconditional in `user.css`. |
 

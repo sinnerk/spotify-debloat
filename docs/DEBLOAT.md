@@ -110,7 +110,7 @@ Lean.toggle()
 ```
 
 The top-bar "Lean" pill does the same thing. State persists in
-`localStorage["spicetify-lean:ui"]`; setting it to `0` keeps the theme's typography,
+`localStorage["spotify-debloat:ui"]`; setting it to `0` keeps the theme's typography,
 spacing and colours while restoring the hidden surfaces. That makes it a one-click
 A/B test when you suspect a rule is hiding something you needed.
 

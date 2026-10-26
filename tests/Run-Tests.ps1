@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    Test suite for spicetify-lean.
+    Test suite for spotify-debloat.
 
 .DESCRIPTION
     Dependency-free on purpose: no Pester, so it runs on a stock Windows PowerShell 5.1
@@ -567,7 +567,7 @@ $sections = [ordered]@{
 }
 
 Write-Host ''
-Write-Host '  spicetify-lean tests' -ForegroundColor White
+Write-Host '  spotify-debloat tests' -ForegroundColor White
 Write-Host ("  root: {0}" -f $script:Root) -ForegroundColor DarkGray
 Write-Host ("  host: PowerShell {0} on {1}" -f $PSVersionTable.PSVersion, $env:OS) -ForegroundColor DarkGray
 
