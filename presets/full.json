@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "name": "full",
+  "title": "Full (experimental)",
+  "description": "Every compatible extension in the catalog, minus blocked categories and all but one extension per conflict group. Expect breakage. Install with -Force.",
+  "all": true,
+  "extensions": [],
+  "exclude": []
+}

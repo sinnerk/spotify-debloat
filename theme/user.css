@@ -1,0 +1,460 @@
+/*  spicetify-lean - Lean theme
+    ------------------------------------------------------------------
+    Design rules:
+      - one accent, no gradients (except a 6% header tint), no shadows
+      - no remote fonts, no images
+      - smaller radii and tighter spacing than stock Spotify
+      - debloat rules are ON by default and can be switched off at
+        runtime from the "Lean" button in the top bar (lean-ui.js)
+
+    Compatibility note
+    ------------------
+    Spotify 1.3.x renders most of its UI with Encore web components whose
+    class names are build-stamped (e-10860-card__main) and change every
+    release. This theme therefore styles in three layers, in this order:
+
+      1. design tokens  -- background/text/radius/shadow variables.
+                           Version-proof: Encore components read them.
+      2. [class*="..."] -- substring matches that survive the build stamp.
+      3. data-testid / aria -- semantic hooks Spotify keeps stable because
+                           its own end-to-end tests depend on them.
+
+    Run `node tools/cdp-audit.mjs` after a client update to list selectors
+    that no longer match anything.
+    ------------------------------------------------------------------ */
+
+/*  ============================== TOKENS ============================== */
+
+:root {
+  --lean-radius: 10px;
+  --lean-radius-sm: 6px;
+  --lean-border: rgba(255, 255, 255, 0.07);
+  --lean-hover: rgba(255, 255, 255, 0.045);
+
+  --font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system,
+    "Helvetica Neue", sans-serif;
+}
+
+/* Encore geometry: these tokens drive every rounded surface in the client,
+   so one change here re-shapes cards, buttons, menus, modals and rows. */
+:root {
+  --encore-corner-radius-smaller: 4px;
+  --encore-corner-radius-base: var(--lean-radius-sm);
+  --encore-corner-radius-larger: var(--lean-radius-sm);
+  --encore-corner-radius-larger-2: var(--lean-radius);
+  --encore-corner-radius-larger-3: 14px;
+
+  --radius-sm: var(--lean-radius-sm);
+  --radius-md: var(--lean-radius);
+  --radius-lg: 14px;
+}
+
+/* Flat: kill the drop shadows and the film-grain overlay. */
+:root {
+  --background-noise: none;
+  --shadow-overlay: none;
+  --shadow-modal: none;
+  --encore-overlay-box-shadow: none;
+  --encore-overlay-drop-shadow: none;
+}
+
+/*  ======================== ENCORE PALETTE MAP ======================== */
+/* Spicetify writes the palette into --spice-*; Encore components read
+   --background-*, --text-*, --essential-*, --color-text-*. Bridging the two
+   here is what actually recolours the 2026 client.                          */
+
+:root,
+.encore-dark-theme {
+  --background-base: var(--spice-main);
+  --background-highlight: var(--spice-card);
+  --background-press: #050706;
+  --background-elevated-base: var(--spice-card);
+  --background-elevated-highlight: #18201d;
+  --background-elevated-press: #0f1412;
+  --background-tinted-base: rgba(255, 255, 255, 0.05);
+  --background-tinted-highlight: rgba(255, 255, 255, 0.08);
+  --background-tinted-press: rgba(255, 255, 255, 0.12);
+
+  --text-base: var(--spice-text);
+  --text-subdued: var(--spice-subtext);
+  --text-bright-accent: var(--spice-button);
+  --text-announcement: var(--spice-button);
+
+  --essential-base: var(--spice-text);
+  --essential-subdued: var(--spice-subtext);
+  --essential-bright-accent: var(--spice-button-active);
+  --essential-positive: var(--spice-button-active);
+
+  --decorative-base: var(--spice-text);
+  --decorative-subdued: #2a332f;
+
+  --color-text-primary: var(--spice-text);
+  --color-text-secondary: var(--spice-subtext);
+  --color-text-tertiary: #6b7570;
+  --color-text-quaternary: #4a534f;
+
+  --spice-main-elevated: var(--spice-card);
+  --spice-highlight: var(--spice-selected-row);
+  --spice-highlight-elevated: var(--spice-card);
+  --spice-tab-active: var(--spice-button);
+}
+
+/*  ============================== BASE ============================== */
+
+html,
+body {
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(94, 231, 160, 0.25);
+  color: var(--spice-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--spice-button);
+  outline-offset: 2px;
+}
+
+/* thin, quiet scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+.os-scrollbar-handle {
+  background: rgba(255, 255, 255, 0.14) !important;
+  border-radius: 8px !important;
+}
+.os-scrollbar-handle:hover {
+  background: rgba(255, 255, 255, 0.26) !important;
+}
+.os-scrollbar-track {
+  background: transparent !important;
+}
+
+/*  ============================== SHELL ============================== */
+/* Live 1.3.x hooks: #main, #global-nav-bar, #Desktop_LeftSidebar_Id,
+   aside[data-testid="now-playing-bar"], .main-view-container.             */
+
+#main {
+  background-color: var(--spice-main);
+}
+
+#Desktop_LeftSidebar_Id {
+  border-right: 1px solid var(--lean-border);
+}
+
+.main-view-container,
+.main-view-container__scroll-node {
+  background-color: var(--spice-main);
+}
+
+/*  ============================= TOP BAR ============================= */
+/* The global nav paints a scroll-driven colour wash over the page and can
+   blend with the entity artwork. Pin it flat instead.                     */
+
+#global-nav-bar,
+.main-topBar-background,
+.main-topBar-overlay {
+  background-color: var(--spice-main) !important;
+  background-image: none !important;
+  opacity: 1 !important;
+}
+
+.main-topBar-container {
+  border-bottom: 1px solid transparent;
+}
+
+.main-globalNav-navLink {
+  border-radius: var(--lean-radius-sm);
+}
+
+.main-globalNav-contentRight,
+.main-actionButtons {
+  gap: 4px;
+}
+
+/* Lean toggle, built by theme/lean-ui.js. */
+.lean-topbar-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px;
+  margin-right: 6px;
+  border: 1px solid var(--lean-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--spice-subtext);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, background-color 120ms ease;
+}
+
+.lean-topbar-button:hover {
+  background-color: var(--lean-hover);
+  color: var(--spice-text);
+}
+
+.lean-topbar-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--spice-button);
+  transition: background-color 120ms ease, opacity 120ms ease;
+}
+
+.lean-topbar-button[aria-pressed="false"] .lean-topbar-dot {
+  background-color: var(--spice-subtext);
+  opacity: 0.45;
+}
+
+.lean-topbar-button[aria-pressed="false"] .lean-topbar-label {
+  opacity: 0.7;
+}
+
+/*  ========================== ENTITY PAGES ========================== */
+
+.main-entityHeader-container {
+  background-image: linear-gradient(180deg, rgba(94, 231, 160, 0.06), transparent 72%);
+}
+
+/* Spotify paints the artwork's dominant colour as an absolutely positioned
+   wash over the top of the page, with the hex in an inline style. Its class is
+   build-stamped, so match on structure + the inline marker instead:
+     - on playlist pages the wash is a direct child of <section data-testid=…page>
+     - on artist pages it lives inside the entity header
+   The real content lives in .main-entityHeader-contentWrapper. */
+main > section > div[style*="background-color"],
+[data-testid="entity-header"] > div:not(.main-entityHeader-contentWrapper) {
+  background: none !important;
+}
+
+/* No vignette, no scroll sentinel. */
+.main-entityHeader-shadow,
+.main-entityHeader-topbarSentinel {
+  display: none !important;
+}
+
+.main-entityHeader-title {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* Stock sizes the entity title off the viewport, which produces a 90px
+   headline in a narrow window. Cap it so the page reads as a list, not a poster. */
+.main-entityHeader-title h1,
+.main-entityHeader-headerText h1 {
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  line-height: 1.06;
+}
+
+.main-entityHeader-pretitle,
+.main-entityHeader-metaDataText {
+  color: var(--spice-subtext);
+}
+
+.main-entityHeader-imageContainerNew,
+.main-entityHeader-image {
+  border-radius: var(--lean-radius);
+  overflow: hidden;
+}
+
+.main-actionBar-ActionBarRow {
+  gap: 8px;
+}
+
+/* Play/pause pill: flat accent, no gradient, no glow. */
+.main-actionBar-ActionBarRow button[class*="legacy-button-primary"] {
+  background-color: var(--spice-button);
+  color: #050706;
+  border-radius: 999px;
+  transition: transform 100ms ease, background-color 120ms ease;
+}
+
+.main-actionBar-ActionBarRow button[class*="legacy-button-primary"]:hover {
+  background-color: var(--spice-button-active);
+  transform: scale(1.02);
+}
+
+/*  ============================== CARDS ============================== */
+/* Encore cards: e-10860-card__main, e-10860-card-title, legacy-box.       */
+
+[class*="card__main"] {
+  border-radius: var(--lean-radius);
+}
+
+[class*="card-title"] {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+[class*="legacy-box--interactive"] {
+  border-radius: var(--lean-radius-sm);
+  transition: background-color 120ms ease;
+}
+
+/* Home shortcut grid (pinned items, top of Home). */
+.view-homeShortcutsGrid-shortcut {
+  border-radius: var(--lean-radius-sm);
+  transition: background-color 120ms ease;
+}
+
+.view-homeShortcutsGrid-shortcut:hover {
+  background-color: var(--lean-hover);
+}
+
+/* Shelf headings: smaller, quieter. */
+[data-testid="component-shelf"] h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/*  ============================== LISTS ============================== */
+/* Track tables are Encore list rows inside a role="grid" with aria-rowcount. */
+
+[role="grid"] [class*="legacy-list-row"] {
+  border-radius: var(--lean-radius-sm);
+}
+
+[class*="legacy-list-row__row-button"] {
+  border-radius: var(--lean-radius-sm);
+}
+
+/* Library rows in the left sidebar. */
+#Desktop_LeftSidebar_Id [role="grid"] [role="row"] {
+  border-radius: var(--lean-radius-sm);
+}
+
+#Desktop_LeftSidebar_Id [role="grid"] [role="row"]:hover {
+  background-color: var(--lean-hover);
+}
+
+#Desktop_LeftSidebar_Id [role="grid"] [aria-selected="true"] {
+  background-color: var(--spice-selected-row) !important;
+}
+
+.main-yourLibraryX-header {
+  padding-top: 2px;
+}
+
+/*  ========================== NOW PLAYING ========================== */
+
+[data-testid="now-playing-bar"] {
+  background-color: var(--spice-player);
+  border-top: 1px solid var(--lean-border);
+}
+
+.main-nowPlayingBar-nowPlayingBar {
+  padding-inline: 8px;
+}
+
+.main-nowPlayingBar-left {
+  min-width: 180px;
+}
+
+[data-testid="cover-art-container"],
+[data-testid="cover-art-button"] {
+  border-radius: var(--lean-radius-sm);
+  overflow: hidden;
+}
+
+[data-testid="now-playing-widget-v2"] a {
+  border-radius: var(--lean-radius-sm);
+}
+
+/*  ============================ CONTROLS ============================ */
+
+[data-testid="progress-bar-background"],
+.x-progressBar-progressBarBg {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border-radius: 999px;
+}
+
+.x-progressBar-fillColor,
+.x-progressBar-progressFillColor {
+  background-color: var(--spice-button) !important;
+  border-radius: 999px;
+}
+
+[data-testid="progress-bar-handle"] {
+  background-color: var(--spice-text) !important;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+[data-testid="progress-bar"]:hover [data-testid="progress-bar-handle"],
+[data-testid="volume-bar"]:hover [data-testid="progress-bar-handle"] {
+  opacity: 1;
+}
+
+[data-testid="volume-bar"] {
+  border-radius: 999px;
+}
+
+[data-testid="playback-position"],
+[data-testid="playback-duration"] {
+  font-variant-numeric: tabular-nums;
+  color: var(--spice-subtext);
+}
+
+/*  ======================== MENUS / MODALS ======================== */
+
+.main-contextMenu-menu,
+[role="menu"] {
+  border: 1px solid var(--lean-border);
+  border-radius: var(--lean-radius);
+  background-color: #121715;
+}
+
+.main-contextMenu-menuItemButton,
+[role="menuitem"] {
+  border-radius: var(--lean-radius-sm);
+}
+
+.main-genericButton-button {
+  border-radius: var(--lean-radius-sm);
+}
+
+/*  ============================== DEBLOAT ============================== */
+/*  Enabled unless lean-ui.js sets data-lean="0".
+    Each rule removes a surface, not just a colour.                        */
+
+/* Upsells. Account-dependent: a Premium account never renders these, so
+   `node tools/cdp-audit.mjs` will report them as dead on such a login.     */
+:root:not([data-lean="0"]) [data-testid="upgrade-button"],
+:root:not([data-lean="0"]) [data-testid="download-button"],
+:root:not([data-lean="0"]) [class*="topBar-upgradeButton"],
+:root:not([data-lean="0"]) [class*="topBar-whatsNewButton"],
+:root:not([data-lean="0"]) button[aria-label="What's New"],
+:root:not([data-lean="0"]) button[aria-label="What's new"] {
+  display: none !important;
+}
+
+/* Home: keep the pinned shortcuts and your own history, drop the
+   recommendation carousels. "/recents" is a locale-independent hook.       */
+:root:not([data-lean="0"]) [data-testid="home-page"] [data-testid="component-shelf"]:not(:has(a[href="/recents"])) {
+  display: none !important;
+}
+
+/* Home: the header is already flat; just tighten it. */
+:root:not([data-lean="0"]) [data-testid="home-page"] [class*="contentSpacing"] {
+  margin-bottom: 8px;
+}

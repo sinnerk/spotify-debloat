@@ -1,0 +1,38 @@
+# --- local state / secrets -------------------------------------------------
+.env
+.env.*
+*.pem
+*.key
+*_cache.json
+**/auth/
+lean-state.json
+
+# --- benchmark output ------------------------------------------------------
+# Reports are committed on purpose (see docs/BENCHMARKS.md), but ad-hoc runs
+# and screenshots are not.
+reports/tmp-*.json
+reports/*-scratch.json
+*.png
+
+# --- dependencies / build junk --------------------------------------------
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- editor ----------------------------------------------------------------
+.vscode/
+.idea/
+*.suo
+*.user

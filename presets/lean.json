@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "name": "lean",
+  "title": "Lean",
+  "description": "Small, maintained extensions that add real value without covering the UI. This is the default profile.",
+  "all": false,
+  "extensions": [
+    "spicetify-cli--shuffle",
+    "spicetify-cli--keyboardshortcut",
+    "spicetify-cli--bookmark",
+    "spicetify-cli--trashbin",
+    "spicetify-cli--loopyloop",
+    "spicetify-cli--autoskipvideo",
+    "therealpadster-spicetify-hide-podcasts--hidepodcasts",
+    "rxri-spicetify-extensions--songstats",
+    "borfak-spicetify-clean-links--clean-links",
+    "noahtberger-spicetify-mods--hide-announcements"
+  ],
+  "exclude": []
+}

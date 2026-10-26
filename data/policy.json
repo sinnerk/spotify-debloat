@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "description": "Rules used when resolving the 'full' preset. The catalog still lists everything; these rules only decide what gets enabled together.",
+  "blockedPatterns": [
+    {
+      "pattern": "adblock|ad-block|adblocker|ads-?block",
+      "reason": "Ad blocking circumvents Spotify's monetization and is out of scope for a performance project."
+    },
+    {
+      "pattern": "spicedl|spotiflac|speedify|spotify-?downloader|song-?downloader",
+      "reason": "Download and DRM-circumvention tools are not bundled or enabled."
+    }
+  ],
+  "conflictGroups": [
+    {
+      "id": "lyrics",
+      "pattern": "lyric",
+      "preferred": [],
+      "reason": "Multiple lyric providers replace the same view and fight for the same DOM. No preference is set: the most starred provider wins, and Spicy Lyrics is not preferred because it broke the now-playing card on 1.3.6."
+    },
+    {
+      "id": "fullscreen",
+      "pattern": "full ?app|fullscreen|full-?screen",
+      "preferred": [],
+      "reason": "Several fullscreen replacements cannot coexist."
+    },
+    {
+      "id": "progress",
+      "pattern": "progress ?bar|progressbar|seek ?bar",
+      "preferred": [],
+      "reason": "Only one extension can own the playback progress bar."
+    },
+    {
+      "id": "miniplayer",
+      "pattern": "mini ?player|now ?playing view",
+      "preferred": [],
+      "reason": "Overlapping now-playing and mini-player replacements."
+    },
+    {
+      "id": "shuffle",
+      "pattern": "shuffle",
+      "preferred": ["spicetify-cli--shuffle"],
+      "reason": "Multiple shuffle replacements hook the same play buttons."
+    },
+    {
+      "id": "podcasts",
+      "pattern": "podcast",
+      "preferred": ["therealpadster-spicetify-hide-podcasts--hidepodcasts"],
+      "reason": "One maintained podcast hider is enough; duplicates only add observers."
+    },
+    {
+      "id": "stats",
+      "pattern": "song ?stats|listening ?stats",
+      "preferred": ["rxri-spicetify-extensions--songstats"],
+      "reason": "Several stats panels render into the same track metadata area."
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: tests / ${{ matrix.edition }}
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - edition: Windows PowerShell 5.1
+            shell: powershell
+          - edition: PowerShell 7
+            shell: pwsh
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show tool versions
+        shell: ${{ matrix.shell }}
+        run: |
+          $PSVersionTable | Format-List
+          node --version
+
+      - name: Run test suite
+        shell: ${{ matrix.shell }}
+        run: ./tests/Run-Tests.ps1
+
+  lint:
+    name: lint
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate every JSON file
+        shell: pwsh
+        run: |
+          $failed = @()
+          Get-ChildItem -Recurse -Filter *.json -File |
+            Where-Object { $_.FullName -notmatch '\\node_modules\\' } |
+            ForEach-Object {
+              try {
+                $null = Get-Content -LiteralPath $_.FullName -Raw | ConvertFrom-Json
+              } catch {
+                $failed += "$($_.FullName): $($_.Exception.Message)"
+              }
+            }
+          if ($failed.Count -gt 0) {
+            $failed | ForEach-Object { Write-Host "::error::$_" }
+            exit 1
+          }
+          Write-Host "all JSON files parse"
+
+      - name: Syntax check the Node tools
+        shell: pwsh
+        run: |
+          $tools = Get-ChildItem -Path tools -Filter *.mjs -File
+          foreach ($tool in $tools) {
+            node --check $tool.FullName
+            if ($LASTEXITCODE -ne 0) { throw "$($tool.Name) failed node --check" }
+          }
+          Write-Host "$($tools.Count) tool(s) OK"
+
+      - name: PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+          Install-Module PSScriptAnalyzer -Scope CurrentUser -Force -AllowClobber
+          $errors = Invoke-ScriptAnalyzer -Path . -Recurse -Severity Error
+          $warnings = Invoke-ScriptAnalyzer -Path . -Recurse -Severity Warning
+          if ($warnings) {
+            Write-Host "::notice::$($warnings.Count) analyzer warning(s)"
+            $warnings | Format-Table RuleName, ScriptName, Line, Message -AutoSize | Out-String -Width 200 | Write-Host
+          }
+          if ($errors) {
+            $errors | ForEach-Object {
+              Write-Host "::error file=$($_.ScriptName),line=$($_.Line)::$($_.RuleName): $($_.Message)"
+            }
+            exit 1
+          }
+          Write-Host "no analyzer errors"
+
+  privacy:
+    name: privacy scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Reject personal paths and credentials
+        run: |
+          set -euo pipefail
+          # The separator is a character class so this file does not match itself.
+          patterns='C:[\\/]Users[\\/]|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}|xox[baprs]-[0-9A-Za-z-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----'
+          if grep -rInE "$patterns" \
+              --exclude-dir=.git \
+              --exclude-dir=node_modules \
+              --include='*.ps1' --include='*.psm1' --include='*.psd1' \
+              --include='*.json' --include='*.js' --include='*.mjs' \
+              --include='*.css' --include='*.ini' --include='*.md' \
+              --include='*.yml' --include='*.yaml' --include='*.txt' . ; then
+            echo "::error::personal path or credential pattern found"
+            exit 1
+          fi
+          echo "clean"

@@ -1,0 +1,345 @@
+{
+    "generatedAt":  "2026-10-26T19:08:59Z",
+    "errors":  [
+                   {
+                       "repo":  "spicetify/marketplace",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "3raxton/spicetify-custom-apps-and-extensions",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "TheRandomLabs/Scoop-Spotify",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "clementwzk/Fast-BlockTheSpot-And-Spicetify-Update",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "spotify-util/ViewPlaylistsWithSong",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "FlafyDev/spotify-listen-together-server",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "amanharwara/spicetify-autoVolume",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "nelsongillo/spicetify-history",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "nmattis/spicetify-extensions",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "Hyperiya/Iris",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "aiden04/spicetify-gui",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "otnc/spotify-lyrics-position",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "spotify-util/BetterLeftSidebar",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "l-zeuch/spicetify-extensions",
+                       "kind":  "extensions",
+                       "reason":  "manifest-empty"
+                   },
+                   {
+                       "repo":  "momcilovicluka/spicetify",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "DevPieter/instant-queue",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "jamesrchen/Spicetify-volumePercent",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "NeonLightning/localSearch",
+                       "kind":  "extensions",
+                       "reason":  "manifest-invalid-json"
+                   },
+                   {
+                       "repo":  "artplan1/spicetify-autolike",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "StamTsag/spicetify-welcomer",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "trafficlunar/jellyfin-spicetify",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "orlandophillips/Spilyoxifier",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "romannero/Repeat-memory",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "nelsongillo/spicetify-copy",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "durpyneko/spicetify-kikuri-jam-synced",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "notPlancha/sveltify-template",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "Amiru2007/Bloom-Tweaks",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "fatihkaan22/focus-mode-spicetify",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "A2R14N/auto-new-releases-py",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "mokk01/ysr",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "guhschoolacc/RemoveUnavailableTracks",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "Tynfolz/Spicetify-Local-API",
+                       "kind":  "extensions",
+                       "reason":  "manifest-invalid-json"
+                   },
+                   {
+                       "repo":  "ilhamfameid/romaji-lyrics-spicetify",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "SomeoneDumb/ooooscarymaliciousextension",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "superC12/spicetify-deskthing",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "stafawashere/spicetify-release",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "rayasolucoesdigitais/Vantagraph-Custom",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "flynnsharwood/spicetify-madeforyou",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "EllisG17/immersive-player",
+                       "kind":  "extensions",
+                       "reason":  "manifest-invalid-json"
+                   },
+                   {
+                       "repo":  "keparlak/spadblocker",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "AjaxFNC-YT/Spicetify-LocalFilesFix",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "mirsman47-pixel/SpicyRPC",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "ArtseeN/spotify-theme-studio",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "AlbeeDev/DynamicCoverTheme",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "Daynaexpandable336/spotify-lyrics-position",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "GodKingTyler/guitar-hero",
+                       "kind":  "extensions",
+                       "reason":  "manifest-invalid-json"
+                   },
+                   {
+                       "repo":  "Cjhackeryt/SpicetifyDeck",
+                       "kind":  "extensions",
+                       "reason":  "manifest-invalid-json"
+                   },
+                   {
+                       "repo":  "elpuripro525/spicetify-library-pin-collapsed",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "dekub100/sc-sp-remote",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "paramkathir/spotify-playlist-plus",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "Microck/tuneport",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "Sheddy-bot/sivalabs-marketplace",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "DevPieter/catify",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "NimiGames68/spicetify",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "Creeperprol/spicetify-liquid-glass",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "DarkVanityOfLight/RustyLyr",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "MCgrassy223/Spicetify-Particle-Effects-",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "ahmadzip/lyricfloat",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "SplashFix/spicetify-lyrics-plus",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "Stas091523/spicetify-genius-x",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "konradSC/Cue-Deck",
+                       "kind":  "extensions",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "HardyUA/spicetify-extension",
+                       "kind":  "extensions",
+                       "reason":  "manifest-invalid-json"
+                   },
+                   {
+                       "repo":  "3raxton/spicetify-custom-apps-and-extensions",
+                       "kind":  "apps",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "TheRandomLabs/Scoop-Spotify",
+                       "kind":  "apps",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "kineticron/KineSync",
+                       "kind":  "apps",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "GZHN/taste-profile",
+                       "kind":  "apps",
+                       "reason":  "manifest-unavailable"
+                   },
+                   {
+                       "repo":  "mefferr/Scrobblelytics",
+                       "kind":  "apps",
+                       "reason":  "manifest-invalid-json"
+                   },
+                   {
+                       "repo":  "Golevka2001/genius-lyrics",
+                       "kind":  "apps",
+                       "reason":  "manifest-unavailable"
+                   }
+               ]
+}

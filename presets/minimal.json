@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "name": "minimal",
+  "title": "Minimal",
+  "description": "No third-party extensions. Only the Lean theme, the UI toggle and the debloat configuration.",
+  "all": false,
+  "extensions": [],
+  "exclude": []
+}

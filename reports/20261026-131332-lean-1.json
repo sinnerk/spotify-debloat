@@ -1,0 +1,32 @@
+{
+    "schemaVersion":  1,
+    "label":  "lean-1",
+    "capturedAt":  "2026-10-26T20:13:32Z",
+    "durationSeconds":  44.8,
+    "sampleCount":  45,
+    "spotifyVersion":  "1.3.6.1921",
+    "spicetifyVersion":  "2.46.2",
+    "theme":  "Lean",
+    "aggressive":  false,
+    "launchFlags":  "--host-resolver-rules=MAP log.spotify.com 127.0.0.1,MAP crashdump.spotify.com 127.0.0.1,MAP crashdump.spotify.net 127.0.0.1,MAP analytics.spotify.com 127.0.0.1",
+    "extensionCount":  11,
+    "processorCount":  16,
+    "windowVisible":  true,
+    "warnings":  [
+
+                 ],
+    "memory":  {
+                   "workingSetAverageMB":  1233.8,
+                   "workingSetPeakMB":  1371.6,
+                   "privateAverageMB":  959.7,
+                   "privatePeakMB":  1098.8
+               },
+    "cpu":  {
+                "percentOfOneCore":  4.47,
+                "percentOfSystem":  0.28
+            },
+    "processes":  {
+                      "average":  8,
+                      "peak":  8
+                  }
+}
