@@ -15,28 +15,27 @@ concurrency:
 
 jobs:
   tests:
-    name: tests / ${{ matrix.edition }}
+    name: tests
     runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - edition: Windows PowerShell 5.1
-            shell: powershell
-          - edition: PowerShell 7
-            shell: pwsh
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Show tool versions
-        shell: ${{ matrix.shell }}
+        shell: pwsh
         run: |
           $PSVersionTable | Format-List
+          powershell -NoProfile -Command '$PSVersionTable.PSVersion'
           node --version
+          git --version
 
-      - name: Run test suite
-        shell: ${{ matrix.shell }}
+      - name: Windows PowerShell 5.1
+        shell: powershell
+        run: ./tests/Run-Tests.ps1
+
+      - name: PowerShell 7
+        shell: pwsh
+        if: always()
         run: ./tests/Run-Tests.ps1
 
   lint:
