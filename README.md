@@ -57,7 +57,7 @@ Prerequisites:
 
 * Windows PowerShell 5.1 (built in). PowerShell 7 works too.
 
-Then, from the repository root:
+Clone it, then work from the repository root:
 
 ```powershell
 git clone https://github.com/sinnerk/spotify-debloat.git
