@@ -11,7 +11,7 @@
 (function LeanUI() {
   "use strict";
 
-  const VERSION = "0.2.0";
+  const VERSION = "0.2.1";
   const STORAGE_KEY = "spotify-debloat:ui";
   const root = document.documentElement;
   let enabled = localStorage.getItem(STORAGE_KEY) !== "0";
@@ -98,6 +98,22 @@
     return true;
   }
 
+  // The nav builds its right cluster over a few frames, so re-check coverage for
+  // a bounded window and move the pill out from under the search field if it
+  // ends up buried. Ten checks, then the timer is gone for good.
+  function guardPlacement() {
+    let checks = 0;
+    const timer = setInterval(() => {
+      checks += 1;
+      const button = document.getElementById("lean-topbar-button");
+      if (button && covered(button)) {
+        const host = button.parentElement;
+        if (host) host.appendChild(button);
+      }
+      if (checks >= 10) clearInterval(timer);
+    }, 500);
+  }
+
   apply();
 
   // The top bar is mounted once and survives navigation, so a short bounded
@@ -105,7 +121,10 @@
   let attempts = 0;
   const timer = setInterval(() => {
     attempts += 1;
-    if (mount() || attempts > 40) clearInterval(timer);
+    if (mount() || attempts > 40) {
+      clearInterval(timer);
+      if (document.getElementById("lean-topbar-button")) guardPlacement();
+    }
   }, 500);
 
   console.log(`[spotify-debloat] lean-ui ${VERSION} loaded (debloat ${enabled ? "on" : "off"})`);
