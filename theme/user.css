@@ -189,6 +189,9 @@ body {
 /* Lean toggle, built by theme/lean-ui.js. */
 .lean-topbar-button {
   display: inline-flex;
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto;
   align-items: center;
   gap: 6px;
   height: 30px;

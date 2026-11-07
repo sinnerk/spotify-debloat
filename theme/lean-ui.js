@@ -70,14 +70,31 @@
     return button;
   }
 
+  function covered(el) {
+    const rect = el.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return true;
+    const hit = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    return !hit || !(hit === el || el.contains(hit));
+  }
+
   function mount() {
     if (document.getElementById("lean-topbar-button")) return true;
-    // Right-hand cluster of the global nav: next to the avatar, next to nothing else.
+    // Right-hand cluster of the global nav.
     const host =
       document.querySelector(".main-globalNav-contentRight") ||
       document.querySelector(".main-actionButtons");
     if (!host) return false;
-    host.insertBefore(createButton(), host.firstChild);
+
+    const button = createButton();
+    // Insert before the last control (the avatar) instead of prepending: on
+    // Spotify 1.3.8 the search field is positioned over the left edge of this
+    // cluster, so anything prepended there is painted underneath it.
+    const last = host.lastElementChild;
+    if (last) host.insertBefore(button, last);
+    else host.appendChild(button);
+
+    // If the search field still covers it, fall back to the end of the cluster.
+    if (covered(button)) host.appendChild(button);
     return true;
   }
 
