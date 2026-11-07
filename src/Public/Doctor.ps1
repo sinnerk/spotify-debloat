@@ -62,6 +62,23 @@ function Test-LeanEnvironment {
         Add-Check 'Theme files' 'FAIL' ("missing: {0}" -f ($missing -join ', ')) 'Re-clone the repository.'
     }
 
+    # A theme can be installed and enabled while the deployed stylesheet is a
+    # blank placeholder, which renders the client unthemed with no error.
+    $installedTheme = Get-LeanIniValue -Path $context.ConfigPath -Section 'Setting' -Key 'current_theme'
+    if ($installedTheme -eq 'Lean' -and $missing.Count -eq 0) {
+        $themeCss = Join-Path (Join-Path $context.ThemeRoot 'Lean') 'user.css'
+        $appliedCss = Get-LeanAppliedCssPath -Context $context
+        if (Test-LeanFileBlank -Path $themeCss) {
+            Add-Check 'Theme deployed' 'FAIL' ("{0} is blank" -f $themeCss) 'Run: .\lean.ps1 theme, then .\lean.ps1 install'
+        } elseif (Test-LeanFileBlank -Path $appliedCss) {
+            Add-Check 'Theme deployed' 'FAIL' ("{0} is blank" -f $appliedCss) 'Run: .\lean.ps1 install (it re-applies and verifies)'
+        } elseif (-not (Test-LeanFileMatches -Source $themeCss -Destination $appliedCss)) {
+            Add-Check 'Theme deployed' 'WARN' 'patched bundle does not match the installed theme' 'Run: spicetify apply'
+        } else {
+            Add-Check 'Theme deployed' 'PASS' 'patched bundle carries the Lean stylesheet'
+        }
+    }
+
     if (Test-Path -LiteralPath $context.ExtensionRoot) {
         $probe = Join-Path $context.ExtensionRoot '.lean-write-test'
         try {

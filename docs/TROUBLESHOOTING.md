@@ -30,6 +30,7 @@ Start here:
 | Spotify starts but no window appears | A second instance is holding the lock. | `Get-Process Spotify | Stop-Process -Force`, then start again. |
 | Windows Defender / SmartScreen warns about Spotify after install | Spicetify rewrites `xpui.spa` inside the Spotify folder; unsigned modified binaries trip heuristics. | Expected. If you do not accept it, `spicetify restore backup apply` and uninstall. |
 | Everything is stuttering after `-Aggressive` | `--renderer-process-limit=3` is reusing renderers under load. | Re-run `.\lean.ps1 debloat` (without `-Aggressive`), then apply. |
+| Client looks stock (no Lean look) although every command said success | The deployed stylesheet is a blank file: `%APPDATA%\spicetify\Themes\Lean\user.css` has the right size but only NUL bytes, so Spicetify patches in an empty sheet. A Windows copy can report success without the bytes landing. | `.\lean.ps1 doctor` reports `Theme deployed FAIL`; `.\lean.ps1 install` rewrites and re-verifies the stylesheet, and `apply` refuses to leave a blank sheet behind. |
 
 ## Theme
 

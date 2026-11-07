@@ -17,6 +17,16 @@ function Invoke-LeanApply {
     $result = Invoke-Spicetify -Arguments @('apply')
     if ($result.Text) { Write-LeanLog $result.Text -Level Debug }
 
+    $context = Get-LeanContext
+    $theme = Get-LeanIniValue -Path $context.ConfigPath -Section 'Setting' -Key 'current_theme'
+    if ($theme -eq 'Lean') {
+        # A blank copy of the stylesheet patches cleanly but renders unthemed,
+        # so confirm the bundle actually carries it before starting the client.
+        if (-not (Repair-LeanDeployedTheme -Context $context)) {
+            Write-LeanLog 'Theme is installed but not present in the patched bundle; run lean.ps1 doctor.' -Level Error
+        }
+    }
+
     if ($wasRunning -and -not $NoRestart) {
         Write-LeanLog 'Starting Spotify...' -Level Step
         if (Start-SpotifyClient) {

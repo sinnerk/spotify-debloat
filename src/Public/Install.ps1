@@ -26,7 +26,12 @@ function Invoke-LeanInstall {
         }
         Write-LeanLog ("{0,-18} {1,-5} {2}" -f $check.Name, $check.Status, $check.Detail) -Level $level
     }
-    $failures = @($checks | Where-Object { $_.Status -eq 'FAIL' })
+    $failures = @($checks | Where-Object { $_.Status -eq 'FAIL' -and $_.Name -ne 'Theme deployed' })
+    # A blank deployed stylesheet is repairable: the install pipeline rewrites
+    # the theme and verifies the patched bundle before starting Spotify.
+    foreach ($repairable in @($checks | Where-Object { $_.Status -eq 'FAIL' -and $_.Name -eq 'Theme deployed' })) {
+        Write-LeanLog ("{0,-18} {1,-5} {2}" -f $repairable.Name, 'FIX', 'blank theme stylesheet will be rewritten') -Level Warn
+    }
     if ($failures.Count -gt 0) {
         foreach ($failure in $failures) { Write-LeanLog ("Fix: {0}" -f $failure.Fix) -Level Error }
         throw 'Preflight checks failed. Nothing was changed.'

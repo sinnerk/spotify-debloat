@@ -24,8 +24,12 @@ function Install-LeanTheme {
     Write-LeanLog ("Installing theme to {0}" -f $destination) -Level Step
     if (-not $DryRun) {
         New-Item -ItemType Directory -Force -Path $destination | Out-Null
-        Copy-Item -LiteralPath (Join-Path $source 'color.ini') -Destination $destination -Force
-        Copy-Item -LiteralPath (Join-Path $source 'user.css') -Destination $destination -Force
+        foreach ($file in @('color.ini', 'user.css')) {
+            $target = Join-Path $destination $file
+            if (-not (Copy-LeanFileVerified -Source (Join-Path $source $file) -Destination $target)) {
+                throw ("Copying {0} to {1} kept producing a blank file. Check disk health and antivirus interference, then re-run." -f $file, $destination)
+            }
+        }
     }
 
     $enabled = @()
@@ -34,7 +38,10 @@ function Install-LeanTheme {
         if (-not (Test-Path -LiteralPath $extensionSource)) { throw "Missing companion extension: $extensionSource" }
         New-Item -ItemType Directory -Force -Path $context.ExtensionRoot | Out-Null
         if (-not $DryRun) {
-            Copy-Item -LiteralPath $extensionSource -Destination (Join-Path $context.ExtensionRoot 'lean-ui.js') -Force
+            $extensionTarget = Join-Path $context.ExtensionRoot 'lean-ui.js'
+            if (-not (Copy-LeanFileVerified -Source $extensionSource -Destination $extensionTarget)) {
+                throw ("Copying lean-ui.js to {0} kept producing a blank file." -f $context.ExtensionRoot)
+            }
         }
         $enabled = @('lean-ui.js')
     }
