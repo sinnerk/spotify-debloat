@@ -1,7 +1,8 @@
 // Audit theme/user.css against the live Spotify DOM.
 //
 // Usage: node tools/cdp-audit.mjs [path/to/user.css]
-// Requires Spotify started with --remote-debugging-port=9222.
+// Usage: node tools/cdp-audit.mjs [path/to/user.css] [--port N]
+// Requires Spotify started with --remote-debugging-port=<port> (default 9222).
 //
 // For every selector in the stylesheet it reports how many live elements it
 // matches. Selectors that match nothing are almost always stale: Spotify keeps
@@ -10,7 +11,10 @@
 
 import { readFile } from "node:fs/promises";
 
-const cssPath = process.argv[2] || "theme/user.css";
+const args = process.argv.slice(2);
+const portFlag = args.indexOf("--port");
+const port = portFlag >= 0 ? args[portFlag + 1] : (process.env.CDP_PORT || "9222");
+const cssPath = args.find((a, i) => !a.startsWith("--") && i !== portFlag + 1) || "theme/user.css";
 
 /** Extremely small CSS reader: enough for a hand-written stylesheet. */
 function extractSelectors(css) {
@@ -54,12 +58,12 @@ function extractSelectors(css) {
 
 const selectors = extractSelectors(await readFile(cssPath, "utf8"));
 
-const targets = await (await fetch("http://127.0.0.1:9222/json")).json();
+const targets = await (await fetch(`http://127.0.0.1:${port}/json`)).json();
 const page = targets.find(
   (t) => t.type === "page" && String(t.url).includes("xpui.app.spotify.com"),
 );
 if (!page) {
-  console.error("No Spotify page target. Start Spotify with --remote-debugging-port=9222.");
+  console.error(`No Spotify page target. Start Spotify with --remote-debugging-port=${port}.`);
   process.exit(1);
 }
 

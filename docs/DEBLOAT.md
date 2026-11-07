@@ -77,6 +77,8 @@ These are CSS rules, not client changes, and they are all scoped to
 | --- | --- | --- |
 | Upgrade / Premium buttons | `[data-testid="upgrade-button"]`, `[data-testid="download-button"]`, `[class*="topBar-upgradeButton"]` | Pure upsell chrome. |
 | "What's New" | `[class*="topBar-whatsNewButton"]`, `button[aria-label="What's New"]` | A modal you did not ask for. |
+| Store / Marketplace | `button[aria-label="Browse"]`, `button[aria-label="Marketplace"]` | In 1.3.x the cart icon is the store, and the Marketplace button comes from Spicetify's custom app. Neither plays music. |
+| Podcast / audiobook chips | `[role="checkbox"][aria-label="Podcasts"]`, `[aria-label="Audiobooks"]`, `[aria-label="Episodes"]` | Keeps the Home filter row to music. English labels only; a translated client keeps the chips. |
 | Home recommendation carousels | `[data-testid="home-page"] [data-testid="component-shelf"]:not(:has(a[href="/recents"]))` | Removes every shelf except the one that links to your own recent listening. |
 
 The Home rule deliberately keeps the pinned shortcut grid and the `/recents` shelf.

@@ -461,3 +461,19 @@ main > section > div[style*="background-color"],
 :root:not([data-lean="0"]) [data-testid="home-page"] [class*="contentSpacing"] {
   margin-bottom: 8px;
 }
+
+/* Store and marketplace chrome. The cart icon in 1.3.x is the Browse/store
+   button; the Marketplace button comes from Spicetify's custom app. Neither
+   is playback, so both go.                                                */
+:root:not([data-lean="0"]) button[aria-label="Browse"],
+:root:not([data-lean="0"]) button[aria-label="Marketplace"] {
+  display: none !important;
+}
+
+/* Home: keep music. The content-type chips are checkbox roles with English
+   aria-labels in 1.3.x; a translated client keeps them, which is harmless. */
+:root:not([data-lean="0"]) [role="checkbox"][aria-label="Podcasts"],
+:root:not([data-lean="0"]) [role="checkbox"][aria-label="Audiobooks"],
+:root:not([data-lean="0"]) [role="checkbox"][aria-label="Episodes"] {
+  display: none !important;
+}
