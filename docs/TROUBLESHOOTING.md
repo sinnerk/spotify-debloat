@@ -24,7 +24,7 @@ Start here:
 
 | Symptom | Cause | Fix |
 | --- | --- | --- |
-| Spotify opens and immediately closes after `apply` | The patch does not match this client build (usually right after a Spotify update). | `spicetify restore backup apply`, then re-run `.\lean.ps1 install`. |
+| Spotify opens and immediately closes after `apply` | The patch does not match this client build (usually right after a Spotify update). | `spicetify backup apply`, then re-run `.\lean.ps1 install`. |
 | Black or blank window, no UI | A broken extension threw during startup, or the bundle patch failed. | `.\lean.ps1 extensions -Profile minimal`, then `spicetify apply`. If that fixes it, add extensions back one at a time. |
 | "Something went wrong" error page inside the client | Same as above. The console tells you which extension threw: `spicetify enable-devtools`, then Ctrl+Shift+I, then Console. | Disable the extension named in the stack trace. |
 | Spotify starts but no window appears | A second instance is holding the lock. | `Get-Process Spotify | Stop-Process -Force`, then start again. |
@@ -92,8 +92,8 @@ Do not leave a debugging port open: any local process can drive the client throu
 
 | Symptom | Cause | Fix |
 | --- | --- | --- |
-| `restore` says "Spicetify restore failed" | No backup, or the backup does not match the client. | `spicetify restore backup apply` by hand and read its output; if there is no backup at all, reinstall Spotify. |
-| Theme is gone but the client still looks modified | The patch is still applied. | `spicetify restore backup apply`, or `spicetify restore` followed by `spicetify apply` for a clean re-patch. |
+| `restore` says "Spicetify restore failed" | No backup, or the backup does not match the client. | If the versions disagree, run `spicetify backup apply` first and read its output; if there is no backup at all, reinstall Spotify. |
+| Theme is gone but the client still looks modified | Spotify updated and the patch no longer matches the new build. | `spicetify backup apply`, then `.\lean.ps1 install`. |
 | Extensions still listed after restore | Restore disabled them but the files remain (older state file). | Delete `%LOCALAPPDATA%\spicetify\Extensions\*.js` files that follow `vendor-repo--name.js`. |
 | I want Spicetify gone entirely | - | `.\lean.ps1 restore`, then `spicetify restore`, then delete `%APPDATA%\spicetify` and `%LOCALAPPDATA%\spicetify`. |
 

@@ -23,8 +23,8 @@ whose hash it knows.
 # 1. Confirm what happened
 .\lean.ps1 doctor
 
-# 2. Roll the client back to the version the backup was made from
-spicetify restore backup apply
+# 2. Rebuild the backup from the updated client and re-patch in one step
+spicetify backup apply
 
 # 3. If step 2 failed because the backup is gone, reinstall Spotify, run it once,
 #    then create a new backup:
@@ -37,7 +37,9 @@ spicetify backup
 ```
 
 `doctor` reports `Backup WARN backup <old> does not match Spotify <new>` for exactly this
-case, and `lean.ps1 install` refuses to proceed when the preflight fails.
+case, and `lean.ps1 install` now refreshes the backup itself: Spotify's updater leaves a
+clean `xpui.spa` behind, so `spicetify backup apply` is safe there. Run it by hand when
+the installer says the updater left no clean `xpui.spa`.
 
 Do not run `spicetify clear` to "fix" a version mismatch unless you are prepared to
 reinstall Spotify. It deletes the only clean copy of the client.

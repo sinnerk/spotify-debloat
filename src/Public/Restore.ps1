@@ -98,8 +98,19 @@ function Restore-Lean {
     Write-LeanLog 'Restoring original Spotify files...' -Level Step
     $restore = Invoke-Spicetify -Arguments @('restore', 'backup', 'apply') -AllowFailure
     if ($restore.ExitCode -ne 0) {
+        # A Spotify update replaced the client after the backup was made; current
+        # Spicetify releases refuse to restore until the backup matches again.
+        $backup = Test-SpicetifyBackup
+        $freshClient = Test-Path -LiteralPath (Join-Path $context.SpotifyPath 'Apps\xpui.spa')
+        if ($backup.Present -and -not $backup.MatchesCurrent -and $freshClient) {
+            Write-LeanLog ("Backup {0} predates Spotify {1}; refreshing it before restoring." -f $backup.BackupVersion, $backup.SpotifyVersion) -Level Warn
+            $null = Invoke-Spicetify -Arguments @('-n', 'backup')
+            $restore = Invoke-Spicetify -Arguments @('restore', 'backup', 'apply') -AllowFailure
+        }
+    }
+    if ($restore.ExitCode -ne 0) {
         Write-LeanLog ("spicetify restore failed: {0}" -f $restore.Text) -Level Warn
-        Write-LeanLog 'You can reset manually with: spicetify restore backup apply' -Level Warn
+        Write-LeanLog "If Spotify updated, refresh the backup first: spicetify backup apply" -Level Warn
     }
 
     if ($state -and $state.blockedUpdates) {

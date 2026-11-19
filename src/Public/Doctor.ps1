@@ -42,7 +42,7 @@ function Test-LeanEnvironment {
     if ($backup.Present -and $backup.MatchesCurrent) {
         Add-Check 'Backup' 'PASS' ("matches Spotify {0}" -f $backup.BackupVersion)
     } elseif ($backup.Present) {
-        Add-Check 'Backup' 'WARN' ("backup {0} does not match Spotify {1}" -f $backup.BackupVersion, $backup.SpotifyVersion) "Run 'spicetify restore backup apply' after a Spotify update."
+        Add-Check 'Backup' 'WARN' ("backup {0} does not match Spotify {1}" -f $backup.BackupVersion, $backup.SpotifyVersion) "Run 'spicetify backup apply' after a Spotify update; lean.ps1 install now does it for you."
     } else {
         Add-Check 'Backup' 'WARN' 'No Spicetify backup yet.' "The installer creates one automatically (about 400 MB)."
     }

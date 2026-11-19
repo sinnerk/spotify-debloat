@@ -42,14 +42,15 @@ spicetify restore backup apply
 
 Two things to know:
 
-1. **The backup is version-locked.** If Spotify updates to 1.3.7 while the backup is
-   1.3.6, restoring gives you 1.3.6 back, and Spotify will try to update again. That is
-   usually what you want after a broken patch, but it means "restore" is not a
-   time machine for your library - nothing here touches your library.
+1. **The backup is version-locked.** Spotify's updater replaces the client files, so after
+   an update the backup no longer matches and `spicetify restore` refuses to run. Refresh
+   it from the updated client with `spicetify backup apply` (`lean.ps1 install` does this
+   automatically); that is not a rollback - use a Spotify installer if you need the old
+   client version back.
 2. **A fresh backup costs about 400 MB** each time `spicetify clear` is run. `lean.ps1`
    never clears an existing backup; it only creates one when none exists. If the backup
-   version no longer matches the installed client, `doctor` reports `WARN` and tells you
-   to run `spicetify restore backup apply` first.
+   version no longer matches the installed client, `doctor` reports `WARN` and the
+   installer refreshes the backup before applying.
 
 ## Revocability, honestly
 
